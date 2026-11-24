@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Primitive-only test asset for dynamic links: a box body with a revolute
+     door covering the front (−Y) and a prismatic drawer inside whose travel
+     crosses the door's plane. Z up, meters, radians. -->
+<robot name="mini_fridge">
+  <link name="base">
+    <visual>
+      <origin xyz="0 0 0.35" rpy="0 0 0" />
+      <geometry><box size="0.5 0.4 0.7" /></geometry>
+      <material name="shell"><color rgba="0.85 0.86 0.88 1" /></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.35" rpy="0 0 0" />
+      <geometry><box size="0.5 0.4 0.7" /></geometry>
+    </collision>
+  </link>
+  <link name="door">
+    <visual>
+      <origin xyz="0.25 0 0" rpy="0 0 0" />
+      <geometry><box size="0.5 0.02 0.7" /></geometry>
+      <material name="door"><color rgba="0.75 0.78 0.82 1" /></material>
+    </visual>
+    <collision>
+      <origin xyz="0.25 0 0" rpy="0 0 0" />
+      <geometry><box size="0.5 0.02 0.7" /></geometry>
+    </collision>
+  </link>
+  <link name="drawer">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><box size="0.3 0.3 0.15" /></geometry>
+      <material name="tray"><color rgba="0.6 0.8 0.9 1" /></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><box size="0.3 0.3 0.15" /></geometry>
+    </collision>
+  </link>
+  <joint name="hinge" type="revolute">
+    <origin xyz="-0.25 -0.21 0.35" rpy="0 0 0" />
+    <parent link="base" />
+    <child link="door" />
+    <axis xyz="0 0 -1" />
+    <limit lower="0" upper="1.57" effort="50" velocity="2" />
+  </joint>
+  <joint name="slide" type="prismatic">
+    <origin xyz="0 0 0.35" rpy="0 0 0" />
+    <parent link="base" />
+    <child link="drawer" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.3" upper="0" effort="100" velocity="1" />
+  </joint>
+</robot>

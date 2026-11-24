@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Self-contained primitive-only test asset: a box cabinet with one
+     prismatic drawer. Mirrors the ArtVIP joint conventions
+     (axis +Y, limits [-0.3, 0], velocity 1) without needing mesh files. -->
+<robot name="mini_cabinet">
+  <link name="base">
+    <visual>
+      <origin xyz="0 0 0.35" rpy="0 0 0" />
+      <geometry><box size="0.5 0.4 0.7" /></geometry>
+      <material name="shell"><color rgba="0.55 0.57 0.6 1" /></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.35" rpy="0 0 0" />
+      <geometry><box size="0.5 0.4 0.7" /></geometry>
+    </collision>
+  </link>
+  <link name="drawer">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><box size="0.44 0.36 0.16" /></geometry>
+      <material name="wood"><color rgba="0.78 0.64 0.45 1" /></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><box size="0.44 0.36 0.16" /></geometry>
+    </collision>
+  </link>
+  <joint name="slide" type="prismatic">
+    <origin xyz="0 -0.02 0.58" rpy="0 0 0" />
+    <parent link="base" />
+    <child link="drawer" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.3" upper="0" effort="100" velocity="1" />
+  </joint>
+</robot>
